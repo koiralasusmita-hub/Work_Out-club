@@ -20,9 +20,34 @@ def read_workout_file():
 library = read_workout_file()
 print(library)
 
+#Question 1: Am I making progress on my exercises from week 1 to week 3?
+for exercise, weights in library.items():
+    if weights[-1] > weights[0]: # checking if the last weight is greater then the first weight
+        print("Making Great Progress on" , exercise, "from week 1 to week 3")
+    elif weights[-1] == weights[0]: # checking if the last weight is equal to the first weight
+        print("Mantaining the same weight on", exercise, "from week 1 to week 3")
+    else: 
+        print("making less progress on", exercise, "from week 1 to week 3")
 
+#Question 2: what is the avergae weight for each exerise over the course of the 3 weeks?
+for exercise, weights in library.items():
+    average_weight = float(sum(weights)/ len(weights)) # calculating average and converting to float so get exact number
+    print("the average weight for", exercise, "over the course of 3 weeks is ", average_weight)
 
+#Question 3: What is the total weight lifted for each exercise over the course of 3 weeks and can we display it in a bar chart?
+import matplotlib.pyplot as plt
+totals = {}
+for exercise, weights in library.items():
+    totals[exercise] = sum(weights)
+    print("the total weight lifted for", exercise, "over the course of 3 weeks is", totals[exercise])
+plt.bar(totals.keys(), totals.values())
+plt.xlabel("Exercises")
+plt.ylabel("Total Weight Lifted")
+plt.title("Workout Progress")
+plt.show()
 
-
-
+#SElF-CHECK:
+assert len(library) > 0, "no records loaded"
+assert max(library['Leg_Press']) == 105, "max weight for leg press should be 105 "
+print("All checks passed!")
 
